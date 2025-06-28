@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>给小倩的浪漫惊喜</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        
+        body {
+            font-family: 'Ma Shan Zheng', cursive;
+            background: radial-gradient(circle at center, #ff9ecf, #ce8eff);
+            color: #fff;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            animation: heartbeat 1.2s infinite;
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            opacity: 0.9;
+        }
+        
+        .gift-box {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #ff8ebd, #ffc8e6);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 
+                        inset 0 -8px 20px rgba(255, 255, 255, 0.4),
+                        inset 0 8px 20px rgba(255, 255, 255, 0.4);
+            transition: transform 0.3s ease;
+            margin-bottom: 40px;
+        }
+        
+        .gift-box:hover {
+            transform: scale(1.05);
+        }
+        
+        .gift-box::before {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: #ffd700;
+            border-radius: 50%;
+            top: -30px;
+            z-index: 2;
+            box-shadow: 0 0 20px #ffd700;
+        }
+        
+        .gift-box::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            background: #ff4081;
+            border-radius: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .gift-box i {
+            font-size: 6rem;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        .gifts-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .gift-option {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gift-option:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .gift-option i {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            color: #ffd700;
+        }
+        
+        .gift-option span {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .game-container, .memory-container {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            padding: 20px;
+            width: 100%;
+            max-width: 450px;
+            backdrop-filter: blur(5px);
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: none;
+            position: relative;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 64, 129, 0.8);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 20;
+        }
+        
+        .close-btn i {
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .game-header, .memory-header {
+            margin-bottom: 20px;
+        }
+        
+        .game-title, .memory-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .timer, .score {
+            font-size: 1.3rem;
+            margin: 10px 0;
+        }
+        
+        .game-area {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 20px 0;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+        }
+        
+        .memory-album {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .memory-photo {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            border-radius: 15px;
+            display: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        .memory-photo.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        .memory-desc {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2rem;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+        
+        .memory-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 15px;
+        }
+        
+        .memory-nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .memory-nav-btn:active {
+            transform: scale(0.9);
+            background: rgba(255, 255, 255, 0.5);
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 2.5rem;
+            color: #ff4081;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+            animation: float 3s infinite ease-in-out;
+            text-shadow: 0 0 10px rgba(255, 64, 129, 0.7);
+        }
+        
+        .heart:hover {
+            transform: scale(1.2);
+        }
+        
+        .game-btn {
+            background: linear-gradient(to right, #ff8ebd, #ce8eff);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 35px;
+            font-size: 1.3rem;
+            color: white;
+            font-family: 'Ma Shan Zheng', cursive;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .game-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .message {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            color: #ff4081;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: floatUp 3s forwards;
+        }
+        
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            cursor: pointer;
+        }
+        
+        .music-player i {
+            font-size: 1.5rem;
+            color: #fff;
+        }
+        
+        .proposal-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: linear-gradient(to right, #ffd700, #ff8ebd);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            color: #fff;
+            font-family: 'Ma Shan Zheng', cursive;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            display: none;
+        }
+        
+        .access-info {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 10px 15px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+            z-index: 200;
+        }
+        
+        .access-info a {
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        /* Particles and effects */
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .petal {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23ff9ecf" d="M12,21.35L10.55,20.03C5.4,15.36 2,12.28 2,8.5C2,5.42 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.09C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.42 22,8.5C22,12.28 18.6,15.36 13.45,20.03L12,21.35Z"/></svg>');
+            background-size: contain;
+            z-index: 0;
+            opacity: 0.7;
+        }
+        
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 0;
+        }
+        
+        .star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ffd700;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ffd700;
+            z-index: 0;
+        }
+        
+        /* Animations */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Photo frame effect */
+        .photo-frame {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border: 15px solid #ffd700;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .photo-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+            z-index: 2;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 500px) {
+            h1 { font-size: 2.8rem; }
+            .gift-box { width: 180px; height: 180px; }
+            .gift-option { width: 85px; height: 85px; }
+            .gift-option i { font-size: 2rem; }
+            .gift-option span { font-size: 0.95rem; }
+            .game-area { height: 250px; }
+            .memory-album { height: 350px; }
+            .access-info { top: 10px; left: 10px; right: 10px; text-align: center; }
+        }
+        
+        @media (max-width: 400px) {
+            h1 { font-size: 2.5rem; }
+            .gifts-container { gap: 15px; }
+            .gift-option { width: 80px; height: 80px; }
+            .memory-album { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background elements -->
+    <div id="particles"></div>
+    
+    <!-- Access information -->
+    <div class="access-info">
+        小倩专属页面 - 收藏网址: <a href="#" id="pageUrl">xiaoqian.love</a>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <div class="header">
+            <h1>给小倩的惊喜</h1>
+            <div class="subtitle">点击礼物盒，收获属于你的浪漫</div>
+        </div>
+        
+        <div class="gift-box" id="giftBox">
+            <i class="fas fa-gift"></i>
+        </div>
+        
+        <div class="gifts-container" id="giftsContainer">
+            <div class="gift-option" id="memoryGift">
+                <i class="fas fa-images"></i>
+                <span>回忆</span>
+            </div>
+            <div class="gift-option" id="messageGift">
+                <i class="fas fa-envelope"></i>
+                <span>密语</span>
+            </div>
+            <div class="gift-option" id="gameGift">
+                <i class="fas fa-gamepad"></i>
+                <span>游戏</span>
+            </div>
+        </div>
+        
+        <!-- Memory Album Container -->
+        <div class="memory-container" id="memoryContainer">
+            <div class="close-btn" id="memoryClose">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="memory-header">
+                <h2 class="memory-title">我们的甜蜜回忆</h2>
+            </div>
+            <div class="memory-album">
+                <div class="photo-frame">
+                    <div class="memory-photo active" id="photo1" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');">
+                        <div class="memory-desc">第一次相遇</div>
+                    </div>
+                    <div class="memory-photo" id="photo2" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');">
+                        <div class="memory-desc">第一次旅行</div>
+                    </div>
+                    <div class="memory-photo" id="photo3" style="background-image: url('https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');">
+                        <div class="memory-desc">生日惊喜</div>
+                    </div>
+                    <div class="memory-photo" id="photo4" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');">
+                        <div class="memory-desc">海边漫步</div>
+                    </div>
+                    <div class="memory-photo" id="photo5" style="background-image: url('https://images.unsplash.com/photo-1567532939604-b6b5b0e1607d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');">
+                        <div class="memory-desc">圣诞约会</div>
+                    </div>
+                    <div class="memory-photo" id="photo6" style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');">
+                        <div class="memory-desc">我们的未来</div>
+                    </div>
+                </div>
+            </div>
+            <div class="memory-nav">
+                <div class="memory-nav-btn" id="prevPhoto">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <div class="memory-nav-btn" id="nextPhoto">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Game Container -->
+        <div class="game-container" id="gameContainer">
+            <div class="close-btn" id="gameClose">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="game-header">
+                <h2 class="game-title">爱心捕捉游戏</h2>
+                <div class="timer">时间: <span id="timer">30</span>秒</div>
+                <div class="score">收集: <span id="score">0</span>颗爱心</div>
+            </div>
+            <div class="game-area" id="gameArea"></div>
+            <button class="game-btn" id="startBtn">开始游戏</button>
+        </div>
+    </div>
+    
+    <!-- Music Player -->
+    <div class="music-player" id="musicPlayer">
+        <i class="fas fa-music"></i>
+        <audio id="bgMusic" loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+    
+    <!-- Proposal Button -->
+    <button class="proposal-btn" id="proposalBtn">
+        <i class="fas fa-gem"></i> 爱的承诺
+    </button>
+    
+    <script>
+        // DOM Elements
+        const giftBox = document.getElementById('giftBox');
+        const giftsContainer = document.getElementById('giftsContainer');
+        const memoryContainer = document.getElementById('memoryContainer');
+        const gameContainer = document.getElementById('gameContainer');
+        const gameArea = document.getElementById('gameArea');
+        const startBtn = document.getElementById('startBtn');
+        const timerDisplay = document.getElementById('timer');
+        const scoreDisplay = document.getElementById('score');
+        const musicPlayer = document.getElementById('musicPlayer');
+        const bgMusic = document.getElementById('bgMusic');
+        const proposalBtn = document.getElementById('proposalBtn');
+        const memoryClose = document.getElementById('memoryClose');
+        const gameClose = document.getElementById('gameClose');
+        const prevPhotoBtn = document.getElementById('prevPhoto');
+        const nextPhotoBtn = document.getElementById('nextPhoto');
+        const pageUrl = document.getElementById('pageUrl');
+        
+        // Set current page URL
+        pageUrl.textContent = window.location.href;
+        pageUrl.href = window.location.href;
+        
+        // Memory Album Variables
+        const photos = document.querySelectorAll('.memory-photo');
+        let currentPhoto = 0;
+        
+        // Game variables
+        let gameActive = false;
+        let timer = 30;
+        let score = 0;
+        let gameInterval;
+        let timerInterval;
+        const loveMessages = [
+            "小倩，和你在一起的每一秒都是永恒",
+            "你的笑容是我每天的动力",
+            "从第一次见到你，我就知道你是特别的人",
+            "和你在一起的每一天都像情人节",
+            "你是我生命中最美的诗篇",
+            "爱你是我做过最正确的事",
+            "你的眼睛里有我全部的星辰大海",
+            "余生只想和你一起度过",
+            "你是我今生最美的遇见",
+            "有你的地方就是家"
+        ];
+        
+        // Initialize particles
+        function initParticles() {
+            const particlesContainer = document.getElementById('particles');
+            
+            // Create petals
+            for (let i = 0; i < 30; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = `${Math.random() * 100}vw`;
+                petal.style.top = `${Math.random() * 100}vh`;
+                petal.style.animation = `float ${15 + Math.random() * 10}s linear infinite`;
+                petal.style.animationDelay = `${Math.random() * 5}s`;
+                petal.style.opacity = Math.random() * 0.5 + 0.3;
+                petal.style.transform = `scale(${Math.random() * 0.5 + 0.5})`;
+                particlesContainer.appendChild(petal);
+            }
+            
+            // Create bubbles
+            for (let i = 0; i < 20; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                bubble.style.left = `${Math.random() * 100}vw`;
+                bubble.style.top = `${Math.random() * 100}vh`;
+                bubble.style.width = `${Math.random() * 30 + 10}px`;
+                bubble.style.height = bubble.style.width;
+                bubble.style.animation = `float ${20 + Math.random() * 20}s linear infinite`;
+                bubble.style.animationDelay = `${Math.random() * 5}s`;
+                particlesContainer.appendChild(bubble);
+            }
+            
+            // Create stars
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.animation = `twinkle ${2 + Math.random() * 3}s ease-in-out infinite`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                particlesContainer.appendChild(star);
+            }
+        }
+        
+        // Create heart particle effect
+        function createHeartParticles(x, y) {
+            for (let i = 0; i < 10; i++) {
+                const particle = document.createElement('div');
+                particle.innerHTML = '<i class="fas fa-heart"></i>';
+                particle.style.position = 'absolute';
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                particle.style.color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                particle.style.fontSize = `${Math.random() * 20 + 10}px`;
+                particle.style.opacity = '1';
+                particle.style.zIndex = '50';
+                particle.style.pointerEvents = 'none';
+                
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 100 + 50;
+                const vx = Math.cos(angle) * speed;
+                const vy = Math.sin(angle) * speed;
+                
+                document.body.appendChild(particle);
+                
+                let opacity = 1;
+                const particleInterval = setInterval(() => {
+                    opacity -= 0.02;
+                    particle.style.opacity = opacity;
+                    particle.style.left = `${parseFloat(particle.style.left) + vx / 20}px`;
+                    particle.style.top = `${parseFloat(particle.style.top) + vy / 20}px`;
+                    
+                    if (opacity <= 0) {
+                        clearInterval(particleInterval);
+                        particle.remove();
+                    }
+                }, 30);
+            }
+        }
+        
+        // Create message
+        function createMessage(text, x, y) {
+            const message = document.createElement('div');
+            message.className = 'message';
+            message.textContent = text;
+            message.style.left = `${x}px`;
+            message.style.top = `${y}px`;
+            
+            document.body.appendChild(message);
+            
+            setTimeout(() => {
+                message.remove();
+            }, 2500);
+        }
+        
+        // Memory Album Functions
+        function showMemoryAlbum() {
+            memoryContainer.style.display = 'block';
+            currentPhoto = 0;
+            showPhoto(currentPhoto);
+        }
+        
+        function showPhoto(index) {
+            // Hide all photos
+            photos.forEach(photo => {
+                photo.classList.remove('active');
+            });
+            
+            // Show the current photo
+            photos[index].classList.add('active');
+        }
+        
+        function nextPhoto() {
+            currentPhoto = (currentPhoto + 1) % photos.length;
+            showPhoto(currentPhoto);
+        }
+        
+        function prevPhoto() {
+            currentPhoto = (currentPhoto - 1 + photos.length) % photos.length;
+            showPhoto(currentPhoto);
+        }
+        
+        // Start game
+        function startGame() {
+            if (gameActive) return;
+            
+            gameActive = true;
+            timer = 30;
+            score = 0;
+            scoreDisplay.textContent = score;
+            timerDisplay.textContent = timer;
+            gameArea.innerHTML = '';
+            
+            startBtn.textContent = '游戏中...';
+            startBtn.disabled = true;
+            
+            // Timer
+            timerInterval = setInterval(() => {
+                timer--;
+                timerDisplay.textContent = timer;
+                
+                if (timer <= 0) {
+                    endGame();
+                }
+            }, 1000);
+            
+            // Generate hearts
+            gameInterval = setInterval(() => {
+                if (!gameActive) return;
+                
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '<i class="fas fa-heart"></i>';
+                heart.style.left = `${Math.random() * 80 + 10}%`;
+                heart.style.top = `${Math.random() * 80 + 10}%`;
+                heart.style.color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                heart.style.animationDelay = `${Math.random() * 2}s`;
+                
+                heart.addEventListener('click', () => {
+                    score++;
+                    scoreDisplay.textContent = score;
+                    heart.style.transform = 'scale(1.5)';
+                    heart.style.opacity = '0';
+                    createHeartParticles(
+                        heart.getBoundingClientRect().left + heart.offsetWidth / 2,
+                        heart.getBoundingClientRect().top + heart.offsetHeight / 2
+                    );
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 300);
+                    
+                    // Show message every 5 hearts
+                    if (score % 5 === 0) {
+                        const randomMessage = loveMessages[Math.floor(Math.random() * loveMessages.length)];
+                        createMessage(randomMessage, 
+                            Math.random() * window.innerWidth * 0.7 + 50, 
+                            Math.random() * window.innerHeight * 0.7 + 50
+                        );
+                    }
+                });
+                
+                gameArea.appendChild(heart);
+                
+                // Remove hearts after 3 seconds
+                setTimeout(() => {
+                    if (heart.parentNode) {
+                        heart.style.opacity = '0';
+                        setTimeout(() => heart.remove(), 500);
+                    }
+                }, 3000);
+            }, 800);
+        }
+        
+        // End game
+        function endGame() {
+            gameActive = false;
+            clearInterval(gameInterval);
+            clearInterval(timerInterval);
+            
+            startBtn.textContent = '再玩一次';
+            startBtn.disabled = false;
+            
+            // Show final message
+            createMessage(`游戏结束！你收集了 ${score} 颗爱心 ❤️`, 
+                window.innerWidth / 2 - 100, 
+                window.innerHeight / 2
+            );
+        }
+        
+        // Show proposal
+        function showProposal() {
+            createMessage("小倩，你愿意让我照顾你一辈子吗？", 
+                window.innerWidth / 2 - 150, 
+                window.innerHeight / 2 - 50
+            );
+            
+            // Create ring animation
+            const ring = document.createElement('div');
+            ring.innerHTML = '<i class="fas fa-gem" style="font-size: 5rem; color: #ffd700;"></i>';
+            ring.style.position = 'fixed';
+            ring.style.left = '50%';
+            ring.style.top = '50%';
+            ring.style.transform = 'translate(-50%, -50%)';
+            ring.style.zIndex = '1000';
+            ring.style.animation = 'pulse 2s infinite';
+            
+            document.body.appendChild(ring);
+            
+            setTimeout(() => {
+                ring.remove();
+            }, 5000);
+        }
+        
+        // Event Listeners
+        giftBox.addEventListener('click', () => {
+            giftBox.style.transform = 'scale(0)';
+            giftBox.style.opacity = '0';
+            
+            setTimeout(() => {
+                giftsContainer.style.display = 'flex';
+                giftsContainer.style.opacity = '1';
+            }, 500);
+            
+            createHeartParticles(
+                giftBox.getBoundingClientRect().left + giftBox.offsetWidth / 2,
+                giftBox.getBoundingClientRect().top + giftBox.offsetHeight / 2
+            );
+        });
+        
+        document.getElementById('memoryGift').addEventListener('click', showMemoryAlbum);
+        document.getElementById('gameGift').addEventListener('click', () => {
+            gameContainer.style.display = 'block';
+        });
+        
+        startBtn.addEventListener('click', startGame);
+        
+        memoryClose.addEventListener('click', () => {
+            memoryContainer.style.display = 'none';
+        });
+        
+        gameClose.addEventListener('click', () => {
+            if (gameActive) {
+                endGame();
+            }
+            gameContainer.style.display = 'none';
+        });
+        
+        nextPhotoBtn.addEventListener('click', nextPhoto);
+        prevPhotoBtn.addEventListener('click', prevPhoto);
+        
+        musicPlayer.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicPlayer.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                bgMusic.pause();
+                musicPlayer.innerHTML = '<i class="fas fa-music"></i>';
+            }
+        });
+        
+        proposalBtn.addEventListener('click', showProposal);
+        
+        // Long press for fireworks
+        let pressTimer;
+        document.body.addEventListener('touchstart', (e) => {
+            pressTimer = setTimeout(() => {
+                createHeartParticles(e.touches[0].clientX, e.touches[0].clientY);
+                createMessage("我爱你小倩 ❤️", e.touches[0].clientX, e.touches[0].clientY);
+            }, 1000);
+        });
+        
+        document.body.addEventListener('touchend', () => {
+            clearTimeout(pressTimer);
+        });
+        
+        // Show proposal button after 1 minute (for demo)
+        setTimeout(() => {
+            proposalBtn.style.display = 'block';
+        }, 60000);
+        
+        // Initialize
+        window.onload = () => {
+            initParticles();
+            giftsContainer.style.opacity = '0';
+            giftsContainer.style.display = 'none';
+            
+            // Try to autoplay music on iOS with user gesture
+            document.body.addEventListener('touchstart', function initMusic() {
+                bgMusic.play().catch(e => console.log("Autoplay prevented: ", e));
+                document.body.removeEventListener('touchstart', initMusic);
+            });
+        };
+    </script>
+</body>
+</html>
